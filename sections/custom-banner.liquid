@@ -1,11 +1,13 @@
 {{ 'custom-banner.css' | asset_url | stylesheet_tag }}
 {{ 'custom-hero.css' | asset_url | stylesheet_tag }}
 {{ 'custom-header.css' | asset_url | stylesheet_tag }}
+{{ 'custom-quality-banner.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'custom-banner.js' | asset_url }}" defer></script>
 
 <section class="custom-banner" data-section-id="{{ section.id }}">
   {% render 'custom-header', section: section %}
   {% render 'custom-hero', section: section %}
+  {% render 'custom-quality-banner', section: section %}
 </section>
 
 {% schema %}
@@ -56,6 +58,12 @@
       "id": "cta",
       "label": "cta-text",
       "default": "SHOP NOW"
+    },
+    {
+      "type": "text",
+      "id": "quality_text",
+      "label": "Quality Banner",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
     }
   ]
 }
