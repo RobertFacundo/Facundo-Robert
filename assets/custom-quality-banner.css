@@ -9,3 +9,9 @@
 .custom-quality-banner p {
   font-size: 16px;
 }
+
+@media (max-width: 768px) {
+  .custom-quality-banner p {
+    font-size: 14px;
+  }
+}

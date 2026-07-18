@@ -1,10 +1,31 @@
-<section class="custom-grid">
-  <h2>Custom Grid</h2>
+{{ 'custom-grid.css' | asset_url | stylesheet_tag }}
+
+<section class="custom-grid-section">
+  <h1 class="custom-grid__title">Tisson vison in the wild</h1>
+  <div class="custom-grid-section__grid">
+    {% for product in section.settings.collection.products limit: 6 %}
+      <article class="custom-grid__card">
+        <img
+          src="{{ product.featured_image | image_url }}"
+          alt="{{ product.title }}"
+          width="433"
+          height="444"
+        >
+        {% comment %} {% render 'custom-product-popup', product: product %} {% endcomment %}
+      </article>
+    {% endfor %}
+  </div>
 </section>
 
 {% schema %}
 {
   "name": "Custom Grid",
-  "settings": []
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Products Collection"
+    }
+  ]
 }
 {% endschema %}
