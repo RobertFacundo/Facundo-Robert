@@ -1,0 +1,101 @@
+{{ 'custom-banner.css' | asset_url | stylesheet_tag }}
+
+<section class="custom-banner">
+  <header class="custom-banner__header">
+    <button class="custom-banner__burger" type="button" aria-label="Open menu">
+      <img
+        class="custom-banner__burger-icon"
+        src="{{ 'Burger.svg' | asset_url }}"
+        alt=""
+        width="20"
+        height="20"
+      >
+
+      <img
+        class="custom-banner__close-icon"
+        src="{{ 'cross.svg' | asset_url }}"
+        alt=""
+        width="20"
+        height="20"
+      >
+    </button>
+    {% if section.settings.logo %}
+      <img
+        class="custom-banner__logo"
+        src="{{ section.settings.logo | image_url }}"
+        alt="{{ section.settings.logo.alt | escape }}"
+        width="150"
+        height="{{ 19 | divided_by: section.settings.logo.aspect_ratio | round }}"
+      >
+    {% endif %}
+
+    <p class="custom-banner__description">
+      {{ section.settings.description }}
+    </p>
+
+    <a class="custom-banner__button" href="{{ section.settings.button_link }}">
+      <span class="custom-banner__button-text">
+        {{ section.settings.button_text }}
+      </span>
+
+      <img
+        class="custom-banner__button-arrow"
+        src="{{ 'arrowR.svg' | asset_url }}"
+        alt=""
+        width="20"
+        height="20"
+      >
+    </a>
+  </header>
+  <div class="custom-banner__dropdown">
+    <p class="custom-banner__dropdown-description">
+      {{ section.settings.description }}
+    </p>
+
+    <a
+      class="custom-banner__dropdown-button"
+      href="{{ section.settings.button_link }}"
+    >
+      <span>
+        {{ section.settings.button_text }}
+      </span>
+
+      <img
+        src="{{ 'arrowR.svg' | asset_url }}"
+        alt=""
+        width="20"
+        height="20"
+      >
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ]
+}
+{% endschema %}
