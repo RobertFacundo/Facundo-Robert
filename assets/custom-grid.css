@@ -20,6 +20,15 @@
   grid-column-gap: 12px;
   grid-row-gap: 12px;
 }
+.custom-grid__card {
+  position: relative;
+}
+.custom-grid__card img {
+  width: 100%;
+  aspect-ratio: 433 / 444;
+  object-fit: cover;
+  display: block;
+}
 @media (max-width: 768px) {
   .custom-grid-section {
     padding: 40px 12px;

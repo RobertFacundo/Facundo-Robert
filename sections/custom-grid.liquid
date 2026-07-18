@@ -1,4 +1,7 @@
 {{ 'custom-grid.css' | asset_url | stylesheet_tag }}
+{{ 'custom-popup.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-detail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-popup.js' | asset_url }}" defer></script>
 
 <section class="custom-grid-section">
   <h1 class="custom-grid__title">Tisson vison in the wild</h1>
@@ -11,10 +14,11 @@
           width="433"
           height="444"
         >
-        {% comment %} {% render 'custom-product-popup', product: product %} {% endcomment %}
+        {% render 'custom-product-popup', product: product %}
       </article>
     {% endfor %}
   </div>
+  {% render 'custom-product-detail' %}
 </section>
 
 {% schema %}
