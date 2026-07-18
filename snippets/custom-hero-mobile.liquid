@@ -1,0 +1,26 @@
+<div class="custom-hero__mobile-content">
+  <h1 class="custom-hero__mobile*title">{{ section.settings.title }}</h1>
+  <p class="custom-hero__mobile-subtitle">{{ section.settings.subtitle }}</p>
+  <img
+    class="custom-hero__mobile-background-image"
+    src="{{ 'backgroundii.png' | asset_url }}"
+    alt=""
+    width="20"
+    height="20"
+  >
+  <a
+    class="custom-hero__mobile-button"
+    href="{{ section.settings.cta_link }}"
+  >
+    <span class="custom-hero__mobile-button-text">
+      {{ section.settings.cta }}
+    </span>
+
+    <img
+      src="{{ 'white-arrow.svg' | asset_url }}"
+      alt=""
+      width="20"
+      height="20"
+      class="custom-hero__mobile-button-arrow"
+  ></a>
+</div>
