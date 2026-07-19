@@ -1,4 +1,3 @@
-import { CartLinesUpdateEvent } from '@shopify/events'
 /**
  * @typedef {Object} Variant
  * @property {number} id
@@ -311,11 +310,25 @@ function getSelectedVariant (product) {
 async function addToCart () {
   if (!currentProduct) return
 
+  const softWinterJacketVariantId = 50011002798328
+
   const variant = getSelectedVariant(currentProduct)
 
   if (!variant) {
     console.log('Please select size and color')
     return
+  }
+
+  const items = [{ id: variant.id, quantity: 1 }]
+
+  const shouldAddWinterJacket =
+    variant.option1 === 'Medium' && variant.option2 === 'Black'
+
+  if (shouldAddWinterJacket) {
+    items.push({
+      id: softWinterJacketVariantId,
+      quantity: 1
+    })
   }
 
   try {
@@ -325,47 +338,18 @@ async function addToCart () {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        items: [
-          {
-            id: variant.id,
-            quantity: 1
-          }
-        ],
-        sections: 'cart-drawer,cart-icon-bubble',
-        sections_url: window.location.pathname
+        items
       })
     })
 
     const data = await response.json()
+
     console.log('Added:', data)
-    const deferredUpdatePromise = CartLinesUpdateEvent.createPromise()
 
-    document.dispatchEvent(
-      new CartLinesUpdateEvent({
-        action: 'add',
-        context: 'product',
-        lines: [
-          {
-            merchandiseId: variant.id,
-            quantity: 1
-          }
-        ],
-        promise: deferredUpdatePromise.promise
-      })
-    )
+    const cart = await fetch('/cart.js')
+    const cartData = await cart.json()
 
-    deferredUpdatePromise.resolve({
-      cart: CartLinesUpdateEvent.createCartFromAjaxResponse(data),
-      detail: {
-        sections: data.sections,
-        items: data.items,
-        itemCount: data.item_count,
-        source: 'custom-product-detail',
-        didError: false
-      }
-    })
-
-    console.log('Added to cart:', data)
+    console.log('Current cart:', cartData)
   } catch (error) {
     console.error('Error adding product:', error)
   }
