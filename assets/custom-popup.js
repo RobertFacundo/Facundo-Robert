@@ -173,6 +173,8 @@ function renderVariants (product) {
 
   renderSizes(sizes)
 
+  addSizeDropdownListener()
+
   const colors = getAllColors(product)
 
   renderColors(colors)
@@ -198,12 +200,27 @@ function getSizes (product) {
 function renderSizes (sizes) {
   if (!productDetail) return
 
+  /** @type {HTMLSelectElement | null} */
   const sizeSelect = productDetail.querySelector(
     '.custom-product-detail__size-select'
   )
-  if (!sizeSelect) return
+  const sizeButton = productDetail.querySelector(
+    '.custom-product-detail__size-button'
+  )
+
+  const sizeOptions = productDetail.querySelector(
+    '.custom-product-detail__size-options'
+  )
+  const sizeArrow = productDetail.querySelector(
+    '.custom-product-detail__size-arrow'
+  )
+  if (!sizeSelect || !sizeButton || !sizeOptions || !sizeArrow) return
 
   sizeSelect.innerHTML = ''
+  sizeOptions.innerHTML = ''
+
+  sizeButton.textContent = 'Choose your size'
+  sizeButton.classList.remove('is-selected')
 
   const placeholder = document.createElement('option')
 
@@ -222,6 +239,25 @@ function renderSizes (sizes) {
     option.textContent = size
 
     sizeSelect.appendChild(option)
+
+    const li = document.createElement('li')
+
+    li.textContent = size
+
+    li.addEventListener('click', () => {
+      sizeButton.textContent = size
+
+      sizeButton.classList.add('is-selected')
+
+      sizeSelect.value = size
+
+      sizeSelect.dispatchEvent(new Event('change'))
+
+      sizeOptions.classList.remove('is-open')
+      sizeArrow.classList.remove('is-open')
+    })
+
+    sizeOptions.appendChild(li)
   })
 }
 
@@ -255,12 +291,31 @@ function renderColors (colors) {
 
   colorContainer.innerHTML = ''
 
+  const selector = document.createElement('span')
+
+  selector.classList.add('custom-product-detail__color-selector')
+
+  colorContainer.appendChild(selector)
+
   colors.forEach(color => {
     const button = document.createElement('button')
     button.classList.add('custom-product-detail__color-button')
 
     button.addEventListener('click', () => {
       selectedColor = color
+      selector.style.opacity = '1'
+
+      selector.style.transform = `translateX(${button.offsetLeft}px) scale(1)`
+
+      const buttons = colorContainer.querySelectorAll(
+        '.custom-product-detail__color-button'
+      )
+
+      buttons.forEach(button => {
+        button.classList.remove('is-selected')
+      })
+
+      button.classList.add('is-selected')
 
       if (!currentProduct) return
       const variant = getSelectedVariant(currentProduct)
@@ -322,7 +377,7 @@ async function addToCart () {
   const items = [{ id: variant.id, quantity: 1 }]
 
   const shouldAddWinterJacket =
-    variant.option1 === 'Medium' && variant.option2 === 'Black'
+    variant.option1 === 'M' && variant.option2 === 'Black'
 
   if (shouldAddWinterJacket) {
     items.push({
@@ -352,5 +407,29 @@ async function addToCart () {
     console.log('Current cart:', cartData)
   } catch (error) {
     console.error('Error adding product:', error)
+  }
+}
+
+function addSizeDropdownListener () {
+  if (!productDetail) return
+
+  /** @type {HTMLButtonElement | null} */
+  const sizeButton = productDetail.querySelector(
+    '.custom-product-detail__size-button'
+  )
+
+  const sizeOptions = productDetail.querySelector(
+    '.custom-product-detail__size-options'
+  )
+
+  const sizeArrow = productDetail.querySelector(
+    '.custom-product-detail__size-arrow'
+  )
+
+  if (!sizeButton || !sizeOptions || !sizeArrow) return
+
+  sizeButton.onclick = () => {
+    sizeOptions.classList.toggle('is-open')
+    sizeArrow.classList.toggle('is-open')
   }
 }

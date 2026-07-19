@@ -1,8 +1,14 @@
-<div class="custom-popup">
+<div
+  class="custom-popup"
+  style="
+    --popup-top: {{ top }};
+    --popup-right: {{ right }};
+  "
+>
   <button
     class="custom-popup__button"
     data-product-id="{{ product.id }}"
-    data-product='{{ product | json }}'
+    data-product="{{ product | json }}"
   >
     <img
       class="custom-popup__button-cross"

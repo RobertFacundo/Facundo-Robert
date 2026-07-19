@@ -1,7 +1,8 @@
 .custom-popup {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: var(--popup-top);
+  right: var(--popup-right);
+
   z-index: 2;
 }
 

@@ -14,7 +14,49 @@
           width="433"
           height="444"
         >
-        {% render 'custom-product-popup', product: product %}
+        {% case forloop.index %}
+          {% when 1 %}
+            {% render 'custom-product-popup',
+              product: product,
+              top: '235px',
+              right: '150px'
+            %}
+
+          {% when 2 %}
+            {% render 'custom-product-popup',
+              product: product,
+              top: '218px',
+              right: '55px'
+            %}
+
+          {% when 3 %}
+            {% render 'custom-product-popup',
+              product: product,
+              top: '80px',
+              right: '150px'
+            %}
+
+          {% when 4 %}
+            {% render 'custom-product-popup',
+              product: product,
+              top: '70px',
+              right: '110px'
+            %}
+
+          {% when 5 %}
+            {% render 'custom-product-popup',
+              product: product,
+              top: '105px',
+              right: '200px'
+            %}
+
+          {% when 6 %}
+            {% render 'custom-product-popup',
+              product: product,
+              top: '160px',
+              right: '90px'
+            %}
+        {% endcase %}
       </article>
     {% endfor %}
   </div>

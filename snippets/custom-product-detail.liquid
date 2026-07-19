@@ -28,12 +28,25 @@
 
     <div class="custom-product-detail__color-options"></div>
   </div>
-
   <div class="custom-product-detail__sizes">
     <p class="custom-product-detail__sizes-title">Size</p>
 
     <div class="custom-product-detail__select-wrapper">
-      <select class="custom-product-detail__size-select"></select>
+      <!-- UI -->
+      <button
+        type="button"
+        class="custom-product-detail__size-button"
+      >
+        Choose your size
+      </button>
+
+      <ul class="custom-product-detail__size-options"></ul>
+
+      <!-- Hidden select -->
+      <select
+        class="custom-product-detail__size-select"
+        hidden
+      ></select>
 
       <div class="custom-product-detail__size-arrow-container">
         <img
@@ -50,11 +63,11 @@
   <button class="custom-product-detail__add-to-cart">
     ADD TO CART
     <img
-          class="custom-product-detail__cart-arrow"
-          src="{{ 'white-arrow.svg' | asset_url }}"
-          alt=""
-          width="12"
-          height="6"
-        >
+      class="custom-product-detail__cart-arrow"
+      src="{{ 'white-arrow.svg' | asset_url }}"
+      alt=""
+      width="12"
+      height="6"
+    >
   </button>
 </div>
