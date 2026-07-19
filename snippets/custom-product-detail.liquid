@@ -1,0 +1,80 @@
+<div class="custom-product-detail-overlay"></div>
+<div class="custom-product-detail">
+  <button class="custom-product-detail__close-button">
+    <img
+      class="custom-popup__button-close"
+      src="{{ 'popup-close.svg' | asset_url }}"
+      alt=""
+      width="12"
+      height="12"
+    >
+  </button>
+  <div class="custom-product-detail__info">
+    <img
+      class="custom-product-detail__img"
+      alt=""
+      width="120"
+      height="140"
+    >
+    <div class="custom-product-detail__info-details">
+      <h2 class="custom-product-detail__title"></h2>
+      <span class="custom-product-detail__price"></span>
+      <p class="custom-product-detail__description"></p>
+    </div>
+  </div>
+
+  <div class="custom-product-detail__colors">
+    <p>Color</p>
+
+    <div class="custom-product-detail__color-options"></div>
+  </div>
+  <div class="custom-product-detail__sizes">
+    <p class="custom-product-detail__sizes-title">Size</p>
+
+    {% comment %}
+      Custom size selector.
+
+      A hidden native select element is kept in sync with the
+      custom UI button and options list. This approach provides
+      full control over the design while preserving a semantic
+      form element for the selected value.
+    {% endcomment %}
+     
+    <div class="custom-product-detail__select-wrapper">
+      <button
+        type="button"
+        class="custom-product-detail__size-button"
+      >
+        Choose your size
+      </button>
+
+      <ul class="custom-product-detail__size-options"></ul>
+
+      <select
+        class="custom-product-detail__size-select"
+        hidden
+      ></select>
+
+      <div class="custom-product-detail__size-arrow-container">
+        <img
+          class="custom-product-detail__size-arrow"
+          src="{{ 'sizeArrow.svg' | asset_url }}"
+          alt=""
+          width="12"
+          height="6"
+        >
+      </div>
+    </div>
+  </div>
+
+  <button class="custom-product-detail__add-to-cart">
+    ADD TO CART
+    <img
+      class="custom-product-detail__cart-arrow"
+      src="{{ 'white-arrow.svg' | asset_url }}"
+      alt=""
+      width="12"
+      height="6"
+    >
+  </button>
+</div>

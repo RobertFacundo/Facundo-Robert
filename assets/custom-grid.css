@@ -1,0 +1,56 @@
+/* ------------------------------------
+ * Grid Section Layout
+ * ------------------------------------ */
+.custom-grid-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 60px 36px;
+  padding-bottom: 10px;
+  background-color: white;
+}
+
+.custom-grid__title {
+  margin: 0 0 24px;
+  font-family: 'Lustria', serif;
+  font-size: 36px;
+  font-weight: 400;
+  text-align: left;
+}
+
+/* ------------------------------------
+ * Products Grid
+ * ------------------------------------ */
+.custom-grid-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
+}
+.custom-grid__card {
+  position: relative;
+}
+.custom-grid__card img {
+  width: 100%;
+  aspect-ratio: 433 / 444;
+  object-fit: cover;
+  display: block;
+}
+
+/* ------------------------------------
+ * Responsive Styles
+ * ------------------------------------ */
+@media (max-width: 768px) {
+  .custom-grid-section {
+    padding: 40px 12px;
+  }
+
+  .custom-grid__title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .custom-grid-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

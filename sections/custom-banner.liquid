@@ -1,0 +1,80 @@
+{% comment %}
+  Custom Banner Section
+
+  - The UI was divided into independent snippets (Header, Hero and Quality Banner).
+  - Each component has its own stylesheet to improve readability and maintenance.
+  - JavaScript logic was isolated in a dedicated file to keep concerns separated.
+
+  The goal was to make the codebase easier to navigate and scale.
+{% endcomment %}
+ 
+{{ 'custom-banner.css' | asset_url | stylesheet_tag }}
+{{ 'custom-hero.css' | asset_url | stylesheet_tag }}
+{{ 'custom-header.css' | asset_url | stylesheet_tag }}
+{{ 'custom-quality-banner.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-banner.js' | asset_url }}" defer></script>
+
+<section class="custom-banner" data-section-id="{{ section.id }}">
+  {% render 'custom-header', section: section %}
+  {% render 'custom-hero', section: section %}
+  {% render 'custom-quality-banner', section: section %}
+</section>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "hero-title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "hero-subtitle",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Cta link"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "cta-text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "text",
+      "id": "quality_text",
+      "label": "Quality Banner",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    }
+  ]
+}
+{% endschema %}

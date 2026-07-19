@@ -1,0 +1,64 @@
+{{ 'custom-grid.css' | asset_url | stylesheet_tag }}
+{{ 'custom-popup.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-detail.css' | asset_url | stylesheet_tag }}
+<script type="module" src="{{ 'custom-popup.js' | asset_url }}" defer></script>
+
+<section class="custom-grid-section">
+  <h1 class="custom-grid__title">Tisson vison in the wild</h1>
+  <div class="custom-grid-section__grid">
+    {% for product in section.settings.collection.products limit: 6 %}
+      <article class="custom-grid__card">
+        <img
+          src="{{ product.featured_image | image_url }}"
+          alt="{{ product.title }}"
+          width="433"
+          height="444"
+        >
+
+        {% comment %}
+          Pixel-perfect popup positioning.
+
+          The popup component was designed to be reusable by
+          receiving its positioning values as Liquid parameters.
+          This allows the grid section to control the placement
+          of each popup trigger while keeping the component itself
+          agnostic of its final position.
+        {% endcomment %}
+
+        {% case forloop.index %}
+          {% when 1 %}
+            {% render 'custom-product-popup', product: product, top: '235px', right: '150px' %}
+
+          {% when 2 %}
+            {% render 'custom-product-popup', product: product, top: '218px', right: '55px' %}
+
+          {% when 3 %}
+            {% render 'custom-product-popup', product: product, top: '80px', right: '150px' %}
+
+          {% when 4 %}
+            {% render 'custom-product-popup', product: product, top: '70px', right: '110px' %}
+
+          {% when 5 %}
+            {% render 'custom-product-popup', product: product, top: '105px', right: '200px' %}
+
+          {% when 6 %}
+            {% render 'custom-product-popup', product: product, top: '160px', right: '90px' %}
+        {% endcase %}
+      </article>
+    {% endfor %}
+  </div>
+  {% render 'custom-product-detail' %}
+</section>
+
+{% schema %}
+{
+  "name": "Custom Grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Products Collection"
+    }
+  ]
+}
+{% endschema %}

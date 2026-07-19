@@ -1,0 +1,66 @@
+/*
+Hello! My name is Facundo Robert, a Frontend Developer from
+Argentina.
+
+
+First of all, thank you for the opportunity to work on this technical challenge. 
+The project was developed in approximately 17 hours and the complete workflow can be reviewed through Time Doctor.
+
+Time Doctor credentials:
+User: robertf.coder@gmail.com
+Password: shopifyTest1@Robert
+
+
+The first work sessions were dedicated to the initial setup: importing the project, creating and connecting the GitHub repository, configuring Shopify, 
+and analyzing the Figma design to identify the components and architecture required for both sections (Banner & Product Grid).
+
+
+Once the setup and planning phase were completed, I implemented
+the project following a top-to-bottom and left-to-right approach.
+
+
+Throughout the development process, I used AI-assisted tools as a productivity enhancer for validating implementation
+strategies, generating boilerplate code when appropriate, troubleshooting bugs, and discussing possible solutions.
+
+
+After completing the implementation, I focused on styling, responsiveness, animations, and polishing the user experience. The final work session was dedicated to reviewing the codebase
+file by file, removing redundancies and debugging logs, improving readability through comments, and abstracting logic whenever it improved maintainability.
+
+
+Thank you once again for the opportunity to work on this challenge. It was both educational and enjoyable, and I truly
+appreciated the chance to showcase my skills while taking another step toward my goal of becoming a professional software
+developer.
+
+Cheers from Argentina!,
+
+Facundo Robert
+
+*/
+{
+  "sections": {
+    "custom_banner": {
+      "type": "custom-banner",
+      "settings": {
+        "logo": "shopify://shop_images/tisso-vison-logo.png",
+        "description": "Find the ideal gift for your loved ones.",
+        "button_text": "CHOOSE GIFT",
+        "button_link": "",
+        "title": "The Gift Guide",
+        "subtitle": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "cta_link": "",
+        "cta": "SHOP NOW",
+        "quality_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      }
+    },
+    "custom_grid": {
+      "type": "custom-grid",
+      "settings": {
+        "collection": "test-products-collection"
+      }
+    }
+  },
+  "order": [
+    "custom_banner",
+    "custom_grid"
+  ]
+}

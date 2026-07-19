@@ -1,0 +1,17 @@
+.custom-quality-banner {
+  width: 100%;
+  height: 34px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-quality-banner p {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .custom-quality-banner p {
+    font-size: 14px;
+  }
+}

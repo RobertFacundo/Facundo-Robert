@@ -1,0 +1,21 @@
+<div
+  class="custom-popup"
+  style="
+    --popup-top: {{ top }};
+    --popup-right: {{ right }};
+  "
+>
+  <button
+    class="custom-popup__button"
+    data-product-id="{{ product.id }}"
+    data-product='{{ product | json }}'
+  >
+    <img
+      class="custom-popup__button-cross"
+      src="{{ 'popup-button.svg' | asset_url }}"
+      alt=""
+      width="8"
+      height="8"
+    >
+  </button>
+</div>
