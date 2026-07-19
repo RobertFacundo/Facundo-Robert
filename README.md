@@ -1,38 +1,39 @@
-# Shopify Custom Product Challenge
+# 🛍️ Shopify Custom Product Challenge
 
 Implementation of a custom Shopify page based on the provided Figma design.
 
-[https://facundo-robert-48-teststore.myshopify.com/pages/challenge](https://facundo-robert-48-teststore.myshopify.com/pages/challenge)
+🔗 Preview:
+https://facundo-robert-48-teststore.myshopify.com/pages/challenge
 
-## Overview
+## 📌 Overview
 
 This project was built on top of the Shopify Dawn theme and recreates the requested page using custom Shopify sections, snippets, styles and JavaScript.
 
 The goal was to create a pixel-perfect implementation while avoiding Dawn's default sections and components.
 
-## Features
+## ✨ Features
 
-- Custom responsive banner section
-- Custom product grid section
-- Custom product detail modal
-- Variant selection (size and color)
-- Dynamic product data rendering
-- Custom add-to-cart integration
-- Shopify cart drawer synchronization
-- Responsive desktop/mobile layouts
+- 🎨 Custom responsive banner section
+- 🛒 Custom product grid section
+- 🪟 Custom product detail modal
+- 🎛️ Variant selection (size and color)
+- 🔄 Dynamic product data rendering
+- ➕ Custom add-to-cart integration
+- 🛍️ Shopify cart drawer synchronization
+- 📱 Responsive desktop/mobile layouts
 
-## Shopify Architecture
+## 🏗️ Shopify Architecture
 
 The implementation uses:
 
-- Custom Liquid sections
-- Custom Liquid snippets
+- Liquid custom sections
+- Liquid custom snippets
 - Theme assets (CSS/JS/SVG/fonts)
 - Shopify Cart API
 - Shopify Section Rendering API
 - Dawn theme cart events
 
-## Cart Integration
+## 🛒 Cart Integration
 
 The custom add-to-cart flow:
 
@@ -44,7 +45,7 @@ The custom add-to-cart flow:
 
 This keeps the custom implementation synchronized with the native Shopify cart drawer behavior.
 
-## Development Workflow
+## 🌱 Development Workflow
 
 Branches:
 
@@ -53,6 +54,6 @@ Branches:
 
 Changes were developed through feature commits and merged using pull requests.
 
-## Notes
+## 📝 Notes
 
 The project was created as part of a Shopify developer technical assessment.
