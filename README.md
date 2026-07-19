@@ -57,3 +57,12 @@ Changes were developed through feature commits and merged using pull requests.
 ## 📝 Notes
 
 The project was created as part of a Shopify developer technical assessment.
+
+---
+
+## 📬 Contact
+
+- Email: robertf.coder@gmail.com  
+- LinkedIn: https://www.linkedin.com/in/robertfacundodev/  
+- Portfolio: https://facundorobert.vercel.app/  
+- GitHub: https://github.com/RobertFacundo  
