@@ -1,3 +1,11 @@
+{% comment %}
+  In this case the Hero component was intentionally split into Desktop and Mobile
+  versions.
+
+  Since both layouts differ significantly in structure, positioning
+  and styling, separating them results in simpler markup and more
+  maintainable CSS than relying exclusively on responsive overrides.
+{% endcomment %}
 <section class="custom-hero">
   {% render 'custom-hero-desktop', section: section %}
   {% render 'custom-hero-mobile', section: section %}

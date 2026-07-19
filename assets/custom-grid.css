@@ -1,3 +1,6 @@
+/* ------------------------------------
+ * Grid Section Layout
+ * ------------------------------------ */
 .custom-grid-section {
   display: flex;
   flex-direction: column;
@@ -14,6 +17,10 @@
   font-weight: 400;
   text-align: left;
 }
+
+/* ------------------------------------
+ * Products Grid
+ * ------------------------------------ */
 .custom-grid-section__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -29,6 +36,10 @@
   object-fit: cover;
   display: block;
 }
+
+/* ------------------------------------
+ * Responsive Styles
+ * ------------------------------------ */
 @media (max-width: 768px) {
   .custom-grid-section {
     padding: 40px 12px;

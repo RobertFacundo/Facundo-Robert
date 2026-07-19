@@ -1,3 +1,13 @@
+{% comment %}
+  Custom Banner Section
+
+  - The UI was divided into independent snippets (Header, Hero and Quality Banner).
+  - Each component has its own stylesheet to improve readability and maintenance.
+  - JavaScript logic was isolated in a dedicated file to keep concerns separated.
+
+  The goal was to make the codebase easier to navigate and scale.
+{% endcomment %}
+ 
 {{ 'custom-banner.css' | asset_url | stylesheet_tag }}
 {{ 'custom-hero.css' | asset_url | stylesheet_tag }}
 {{ 'custom-header.css' | asset_url | stylesheet_tag }}

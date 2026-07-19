@@ -1,3 +1,12 @@
+/*
+ * Popup button positioning is controlled through
+ * CSS custom properties passed from the grid section.
+ *
+ * This allows each product card to define its own
+ * pixel-perfect position based on the original Figma
+ * design while keeping the popup component reusable.
+ */
+
 .custom-popup {
   position: absolute;
   top: var(--popup-top);

@@ -1,3 +1,10 @@
+import { CartLinesUpdateEvent } from '@shopify/events'
+/**
+ * ------------------------------------
+ * TYPES
+ * ------------------------------------
+ */
+
 /**
  * @typedef {Object} Variant
  * @property {number} id
@@ -15,6 +22,12 @@
  * @property {Array<Variant>} variants
  */
 
+/**
+ * ------------------------------------
+ * GLOBAL STATE
+ * ------------------------------------
+ */
+
 /** @type {string} */
 let selectedSize = ''
 
@@ -23,6 +36,12 @@ let selectedColor = ''
 
 /** @type {Product | null} */
 let currentProduct = null
+
+/**
+ * ------------------------------------
+ * DOM ELEMENTS
+ * ------------------------------------
+ */
 
 /** @type {NodeListOf<HTMLButtonElement>} */
 const popupButtons = document.querySelectorAll('.custom-popup__button')
@@ -75,42 +94,10 @@ if (addToCartButton) {
 }
 
 /**
- * @param {Product} product
- */
-function addSizeListener (product) {
-  if (!productDetail) return
-
-  /** @type {HTMLSelectElement | null} */
-  const sizeSelect = productDetail.querySelector(
-    '.custom-product-detail__size-select'
-  )
-
-  if (!sizeSelect) return
-
-  sizeSelect.addEventListener('change', () => {
-    selectedSize = sizeSelect.value
-
-    const colors = getColorsBySize(product, selectedSize)
-
-    renderColors(colors)
-    if (!currentProduct) return
-
-    const variant = getSelectedVariant(currentProduct)
-
-    console.log({
-      size: selectedSize,
-      color: selectedColor,
-      variant
-    })
-  })
-}
-
-/**
  * ------------------------------------
- * FUNCTIONS
+ * PRODUCT DETAIL FUNCTIONS
  * ------------------------------------
  */
-
 /**
  * @param {Product} product
  */
@@ -118,7 +105,6 @@ function openProductDetail (product) {
   currentProduct = product
   selectedSize = ''
   selectedColor = ''
-  console.log(product, 'log del script')
   if (!productDetail || !overlay) return
 
   productDetail.classList.add('is-open')
@@ -165,10 +151,15 @@ function renderProductInfo (product) {
 }
 
 /**
+ * Initializes the product variant UI
+ * by rendering sizes, colors and their
+ * corresponding event listeners.
+ */
+
+/**
  * @param {Product} product
  */
 function renderVariants (product) {
-  console.log(product.variants, 'TODAS LAS VARIANTS')
   const sizes = getSizes(product)
 
   renderSizes(sizes)
@@ -183,6 +174,36 @@ function renderVariants (product) {
 }
 
 /**
+ * ------------------------------------
+ * SIZE FUNCTIONS
+ * ------------------------------------
+ */
+/**
+ * @param {Product} product
+ */
+function addSizeListener (product) {
+  if (!productDetail) return
+
+  /** @type {HTMLSelectElement | null} */
+  const sizeSelect = productDetail.querySelector(
+    '.custom-product-detail__size-select'
+  )
+
+  if (!sizeSelect) return
+
+  sizeSelect.addEventListener('change', () => {
+    selectedSize = sizeSelect.value
+
+    const colors = getColorsBySize(product, selectedSize)
+
+    renderColors(colors)
+    if (!currentProduct) return
+
+    const variant = getSelectedVariant(currentProduct)
+  })
+}
+
+/**
  * @param {Product} product
  */
 function getSizes (product) {
@@ -193,6 +214,14 @@ function getSizes (product) {
   })
   return [...sizes]
 }
+/**
+ * The custom size dropdown is built using
+ * a hidden native select element plus a custom UI.
+ *
+ * This approach provides full control over the
+ * visual appearance while keeping the selected
+ * value synchronized.
+ */
 
 /**
  * @param {Array<string>} sizes
@@ -260,12 +289,46 @@ function renderSizes (sizes) {
     sizeOptions.appendChild(li)
   })
 }
+function addSizeDropdownListener () {
+  if (!productDetail) return
+
+  /** @type {HTMLButtonElement | null} */
+  const sizeButton = productDetail.querySelector(
+    '.custom-product-detail__size-button'
+  )
+
+  const sizeOptions = productDetail.querySelector(
+    '.custom-product-detail__size-options'
+  )
+
+  const sizeArrow = productDetail.querySelector(
+    '.custom-product-detail__size-arrow'
+  )
+
+  if (!sizeButton || !sizeOptions || !sizeArrow) return
+
+  sizeButton.onclick = () => {
+    sizeOptions.classList.toggle('is-open')
+    sizeArrow.classList.toggle('is-open')
+  }
+}
+
+/**
+ * ------------------------------------
+ * COLOR FUNCTIONS
+ * ------------------------------------
+ */
 
 /**
  * @param {Product} product
  * @param {string} selectedSize
  */
 function getColorsBySize (product, selectedSize) {
+  /**
+   * Colors are dynamically filtered based on the
+   * selected size, matching the available Shopify variants.
+   */
+
   const colors = new Set()
 
   product.variants.forEach(variant => {
@@ -353,6 +416,12 @@ function getAllColors (product) {
 }
 
 /**
+ * ------------------------------------
+ * PRODUCT HELPERS
+ * ------------------------------------
+ */
+
+/**
  * @param {Product} product
  */
 function getSelectedVariant (product) {
@@ -362,9 +431,26 @@ function getSelectedVariant (product) {
   )
 }
 
+/**
+ * ------------------------------------
+ * CART FUNCTIONS
+ * ------------------------------------
+ */
+
+/**
+ * Shopify challenge business rule:
+ *
+ * If the customer selects the Black / M variant,
+ * a Soft Winter Jacket is automatically added
+ * to the cart as an additional item.
+ */
+
 async function addToCart () {
   if (!currentProduct) return
 
+  // Extra variant added as a bundle example.
+  // If the selected variant matches this condition,
+  // another product is added in the same cart operation.
   const softWinterJacketVariantId = 50011002798328
 
   const variant = getSelectedVariant(currentProduct)
@@ -374,8 +460,10 @@ async function addToCart () {
     return
   }
 
+  // Items that will be sent to Shopify Cart API
   const items = [{ id: variant.id, quantity: 1 }]
 
+  // Custom bundle logic
   const shouldAddWinterJacket =
     variant.option1 === 'M' && variant.option2 === 'Black'
 
@@ -386,50 +474,140 @@ async function addToCart () {
     })
   }
 
+  /*
+    Dawn uses CartLinesUpdateEvent as the communication layer
+    between cart mutations and UI components.
+
+    The deferred promise allows cart components to wait
+    until the cart update finishes before refreshing sections.
+  */
+  const deferredEventPromise = CartLinesUpdateEvent.createPromise()
   try {
+    /*
+      Retrieve cart sections that need to be refreshed.
+      
+      Dawn uses Section Rendering API to replace
+      parts of the DOM instead of manually updating
+      every cart component.
+    */
+    const cartItemsComponents = document.querySelectorAll(
+      'cart-items-component'
+    )
+
+    /** @type {string[]} */
+    const sections = []
+
+    cartItemsComponents.forEach(component => {
+      if (component instanceof HTMLElement && component.dataset.sectionId) {
+        sections.push(component.dataset.sectionId)
+      }
+    })
+
+    /*
+      Add product(s) to Shopify cart.
+      
+      The `sections` parameter tells Shopify to return
+      updated HTML for those sections.
+    */
     const response = await fetch('/cart/add.js', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
       },
       body: JSON.stringify({
-        items
+        items,
+        sections: sections.join(',')
       })
     })
 
     const data = await response.json()
 
-    console.log('Added:', data)
+    /*
+      Small UI feedback for the user.
+    */
 
-    const cart = await fetch('/cart.js')
-    const cartData = await cart.json()
+    if (!addToCartButton) return
 
-    console.log('Current cart:', cartData)
+    const originalContent = addToCartButton.innerHTML
+
+    addToCartButton.innerHTML = '✓ ADDED TO CART'
+
+    setTimeout(() => {
+      closeProductDetail()
+
+      addToCartButton.innerHTML = originalContent
+    }, 700)
+
+    /*
+      Fetch final cart state after Shopify mutation.
+    */
+    const cartResponse = await fetch('/cart.js')
+    const cart = await cartResponse.json()
+
+    /*
+      Notify Theme that a cart mutation happened.
+
+      Cart components listen to this event and handle:
+      - cart drawer updates
+      - cart counter updates
+      - section hydration
+      - UI synchronization
+    */
+    const event = new CartLinesUpdateEvent({
+      action: 'add',
+      context: 'product',
+      lines: items.map(item => ({
+        merchandiseId: String(item.id),
+        quantity: item.quantity
+      })),
+      promise: deferredEventPromise.promise
+    })
+
+    document.dispatchEvent(event)
+
+    /*
+      Resolve the event with the updated cart data.
+
+      This unlocks Dawn's internal update flow.
+    */
+
+    deferredEventPromise.resolve({
+      cart: CartLinesUpdateEvent.createCartFromAjaxResponse(cart),
+      detail: {
+        sections: data.sections,
+        items: cart.items,
+        source: 'custom-add-to-cart',
+        itemCount: cart.item_count,
+        didError: false
+      }
+    })
   } catch (error) {
+    deferredEventPromise.reject(error)
+
     console.error('Error adding product:', error)
   }
 }
-
-function addSizeDropdownListener () {
-  if (!productDetail) return
-
-  /** @type {HTMLButtonElement | null} */
-  const sizeButton = productDetail.querySelector(
-    '.custom-product-detail__size-button'
-  )
-
-  const sizeOptions = productDetail.querySelector(
-    '.custom-product-detail__size-options'
-  )
-
-  const sizeArrow = productDetail.querySelector(
-    '.custom-product-detail__size-arrow'
-  )
-
-  if (!sizeButton || !sizeOptions || !sizeArrow) return
-
-  sizeButton.onclick = () => {
-    sizeOptions.classList.toggle('is-open')
-    sizeArrow.classList.toggle('is-open')
-  }
-}
+/**
+ * Adds the selected product variant to the Shopify cart.
+ *
+ * Custom add-to-cart logic:
+ *
+ * Initially, the cart was being updated correctly through `/cart/add.js`,
+ * but the Dawn theme UI was not reacting to the change:
+ * - Cart drawer was not refreshing
+ * - Cart counter was not updating
+ * - Cart sections were not being re-rendered
+ *
+ * After investigating Dawn's native cart implementation,
+ * I found that the theme relies on `CartLinesUpdateEvent`
+ * to notify cart-related components when a cart mutation occurs.
+ *
+ * This function follows the same communication pattern:
+ * 1. Add items through Shopify Cart API
+ * 2. Request updated cart sections
+ * 3. Fetch the updated cart state
+ * 4. Dispatch `CartLinesUpdateEvent`
+ * 5. Resolve the deferred promise so Dawn components
+ *    can update themselves through their existing logic.
+ */
