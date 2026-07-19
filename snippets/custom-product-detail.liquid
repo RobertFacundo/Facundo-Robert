@@ -35,13 +35,26 @@
     <div class="custom-product-detail__select-wrapper">
       <select class="custom-product-detail__size-select"></select>
 
-      <img
-        class="custom-product-detail__size-arrow"
-        src="{{ 'sizeArrow.svg' | asset_url }}"
-        alt=""
-        width="12"
-        height="6"
-      >
+      <div class="custom-product-detail__size-arrow-container">
+        <img
+          class="custom-product-detail__size-arrow"
+          src="{{ 'sizeArrow.svg' | asset_url }}"
+          alt=""
+          width="12"
+          height="6"
+        >
+      </div>
     </div>
   </div>
+
+  <button class="custom-product-detail__add-to-cart">
+    ADD TO CART
+    <img
+          class="custom-product-detail__cart-arrow"
+          src="{{ 'white-arrow.svg' | asset_url }}"
+          alt=""
+          width="12"
+          height="6"
+        >
+  </button>
 </div>

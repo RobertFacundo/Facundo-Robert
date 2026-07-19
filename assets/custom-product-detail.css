@@ -25,7 +25,7 @@
 
   z-index: 10;
   width: 330px;
-  height: 500px;
+  height: 475px;
 
   background-color: white;
 }
@@ -89,10 +89,17 @@
 }
 
 .custom-product-detail__colors {
+  width: 290px;
 }
+.custom-product-detail__colors p,
 .custom-product-detail__sizes-title {
   font-size: 14px;
+  padding-top: 5px;
+  color: #333333;
+  padding-bottom: 0;
+  margin-bottom: 4px;
 }
+
 .custom-product-detail__color-options {
   display: flex;
   width: 100%;
@@ -101,7 +108,7 @@
 .custom-product-detail__color-button {
   position: relative;
   background-color: transparent;
-  width: 140px;
+  width: 145px;
   height: 100%;
   border: 0.6px solid black;
   font-size: 18px;
@@ -124,8 +131,8 @@
 .custom-product-detail__select-wrapper {
   position: relative;
 
-  width: 271px;
-  height: 40.44px;
+  width: 290px;
+  height: 42.44px;
 }
 
 .custom-product-detail__size-select {
@@ -133,11 +140,16 @@
   height: 100%;
 
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+
+  border-radius: 0;
 
   border: 0.6px solid black;
   background-color: transparent;
 
-  padding: 0 40px 0 15px;
+  padding-left: 15px;
 
   font-size: 16px;
   font-weight: 300;
@@ -145,16 +157,44 @@
   cursor: pointer;
 }
 
-.custom-product-detail__size-arrow {
+.custom-product-detail__size-arrow-container {
   position: absolute;
 
-  top: 50%;
-  right: 15px;
+  top: 0;
+  right: 0;
 
-  width: 12px;
-  height: 6px;
+  width: 55px;
+  height: 100%;
 
-  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  border-left: 0.6px solid black;
   pointer-events: none;
+}
+
+.custom-product-detail__size-arrow {
+  width: 18px;
+  height: 9px;
+}
+
+.custom-product-detail__add-to-cart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 281px;
+  height: 45px;
+  color: white;
+  background-color: black;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 300;
+  gap: 35px;
+  margin-top: 50px;
+  padding-left: 55px;
+}
+.custom-product-detail__cart-arrow {
+  width: 33px;
 }
