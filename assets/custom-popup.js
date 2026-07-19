@@ -56,6 +56,9 @@ const overlay = document.querySelector('.custom-product-detail-overlay')
 const addToCartButton = document.querySelector(
   '.custom-product-detail__add-to-cart'
 )
+const addToCartText = addToCartButton?.querySelector(
+  '.custom-product-detail__add-to-cart-text'
+)
 
 /**
  * ------------------------------------
@@ -456,7 +459,7 @@ async function addToCart () {
   const variant = getSelectedVariant(currentProduct)
 
   if (!variant) {
-    console.log('Please select size and color')
+    showError('SELECT SIZE & COLOR')
     return
   }
 
@@ -611,3 +614,23 @@ async function addToCart () {
  * 5. Resolve the deferred promise so Dawn components
  *    can update themselves through their existing logic.
  */
+
+/**
+ * Displays a validation error message to the user.
+ *
+ * @param {string} message - Error message to display.
+ */
+function showError (message) {
+  if (!addToCartButton) return
+
+  if (!addToCartText) return
+
+  addToCartText.textContent = message
+
+  addToCartButton.classList.add('error')
+
+  setTimeout(() => {
+    addToCartText.textContent = 'ADD TO CART'
+    addToCartButton.classList.remove('error')
+  }, 500)
+}

@@ -304,3 +304,11 @@
 .custom-product-detail__cart-arrow {
   width: 33px;
 }
+
+/* ------------------------------------
+ * Error alert
+ * ------------------------------------ */
+.custom-product-detail__add-to-cart.error {
+  opacity: 0.9;
+  color: red;
+}
