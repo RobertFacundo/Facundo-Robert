@@ -1,11 +1,47 @@
+<div class="custom-product-detail-overlay"></div>
 <div class="custom-product-detail">
-  <h2 class="custom-product-detail__title"></h2>
+  <button class="custom-product-detail__close-button">
+    <img
+      class="custom-popup__button-close"
+      src="{{ 'popup-close.svg' | asset_url }}"
+      alt=""
+      width="12"
+      height="12"
+    >
+  </button>
+  <div class="custom-product-detail__info">
+    <img
+      class="custom-product-detail__img"
+      alt=""
+      width="120"
+      height="140"
+    >
+    <div class="custom-product-detail__info-details">
+      <h2 class="custom-product-detail__title"></h2>
+      <span class="custom-product-detail__price"></span>
+      <p class="custom-product-detail__description"></p>
+    </div>
+  </div>
 
-  <p class="custom-product-detail__description"></p>
+  <div class="custom-product-detail__colors">
+    <p>Color</p>
 
-  <span class="custom-product-detail__price"></span>
+    <div class="custom-product-detail__color-options"></div>
+  </div>
 
-  <div class="custom-product-detail__sizes"></div>
+  <div class="custom-product-detail__sizes">
+    <p class="custom-product-detail__sizes-title">Size</p>
 
-  <div class="custom-product-detail__colors"></div>
+    <div class="custom-product-detail__select-wrapper">
+      <select class="custom-product-detail__size-select"></select>
+
+      <img
+        class="custom-product-detail__size-arrow"
+        src="{{ 'sizeArrow.svg' | asset_url }}"
+        alt=""
+        width="12"
+        height="6"
+      >
+    </div>
+  </div>
 </div>
