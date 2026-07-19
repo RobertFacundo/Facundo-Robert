@@ -2,6 +2,8 @@
 
 Implementation of a custom Shopify page based on the provided Figma design.
 
+[https://facundo-robert-48-teststore.myshopify.com/pages/challenge](https://facundo-robert-48-teststore.myshopify.com/pages/challenge)
+
 ## Overview
 
 This project was built on top of the Shopify Dawn theme and recreates the requested page using custom Shopify sections, snippets, styles and JavaScript.
